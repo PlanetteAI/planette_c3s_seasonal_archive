@@ -44,6 +44,16 @@ The planette C3S archive stores this data in cloud native format for easy access
 | v850                    | m/s       | Meridional wind at 850 hPa                  |
 | v500                    | m/s       | Meridional wind at 500 hPa                  |
 | v200                    | m/s       | Meridional wind at 200 hPa                  |
+| v700                    | m/s       | Meridional wind at 700 hPa                  |
+| v100                    | m/s       | Meridional wind at 100 hPa or 100 m (please confirm) |
+
+| **Geopotential (units TBD)** |       | Please confirm preferred units (m²/s² or gpm) |
+| z850                    | TBD       | Geopotential at 850 hPa                     |
+| z700                    | TBD       | Geopotential at 700 hPa                     |
+| z500                    | TBD       | Geopotential at 500 hPa                     |
+| z300                    | TBD       | Geopotential at 300 hPa                     |
+| z200                    | TBD       | Geopotential at 200 hPa                     |
+| z10                     | TBD       | Geopotential at 10 hPa                      |
 
 ### Surface and Column Variables
 
@@ -52,16 +62,19 @@ The planette C3S archive stores this data in cloud native format for easy access
 | t2m                     | K         | 2 meter temperature                         |
 | t2m_max                 | K         | Daily maximum 2 meter temperature           |
 | t2m_min                 | K         | Daily minimum 2 meter temperature           |
+| t2d                     | K         | 2 meter dew point temperature               |
+| pr                      | kg m⁻² s⁻¹| total precipitation rate                    |
+| sst                     | K         | Sea surface temperature                     |
+| stl1                    | K         | Soil temperature (layer 1)                  |
+| slp                     | hPa       | Sea level pressure                          |
+| tcwv                    | kg/m²     | Total column water vapor                    |
+| u10                     | m/s       | 10 meter zonal wind                         |
+| v10                     | m/s       | 10 meter meridional wind                    |
 | u10m                    | m/s       | 10 meter zonal wind                         |
 | v10m                    | m/s       | 10 meter meridional wind                    |
-| u100m                   | m/s       | 100 meter zonal wind                        |
-| v100m                   | m/s       | 100 meter meridional wind                   |
-| t2d                     | K         | 2 meter dew point temperature               |
-| slp                     | hPa       | Sea level pressure                          |
-| SST                     | K         | Sea surface temperature                     |
-| tsoil                   | K         | Soil temperature (top layer)                |
-| olr                     | W/m²      | Top of atmosphere net thermal radiation     |
-| tcwv                    | kg/m²     | Total column water vapor                    |
+| tau_x                   | N/m²      | Surface wind stress (zonal)                 |
+| tau_y                   | N/m²      | Surface wind stress (meridional)            |
+| sf                      | TBD       | Snowfall (please confirm units/definition)  |
 
 ## Temporal Coverage
 
@@ -84,7 +97,7 @@ The planette C3S archive stores this data in cloud native format for easy access
 ### Data Structure
 
 ```
-s3://planettebaikal/forecast_models/seasonal/seas5/prod/sys51/hindcasts/
+s3://planette-c3s-seasonal-forecasts/seas5/
 ├── {variable}/
 │   └── day/
 │       └── 1latx1lon/
@@ -142,4 +155,4 @@ For questions about this dataset or the Planette C3S archive:
 
 ## Acknowledgments
 
-This work is supported by the Copernicus Climate Change Service (C3S) and the AWS Open Data Sponsorship Program. 
+This work is made possible by open data provided by ECMWF and by the Copernicus Climate Change Service (C3S). The data is also held and made available in cloud native format via a partnership between Planette and Amazon. 
