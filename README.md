@@ -120,11 +120,11 @@ pip install xarray zarr s3fs
 import xarray as xr
 import icechunk as ic
 
-# get bucket and prefix
+# get the bucket and prefix
 year = 2025 # Forecasts are stored by year, and available from 1981 to present
-variable = "pr" # mean total precipitation rate (kg m-2 s-1)
-bucket = "planettebaikal"
-prefix = f"forecast_models/seasonal/seas5/prod/sys51/hindcasts/{variable}/day/1latx1lon/seas5_sys51_{variable}_day_1latx1lon_{year}.zarr"
+variable = "t2m" # 2 meter temperature (K)
+bucket = "planette-c3s-seasonal-forecasts"
+prefix = f"seas5/sys51/{variable}/day/1latx1lon/seas5_sys51_{variable}_day_1latx1lon_{year}.zarr"
 
 # Open the dataset
 ds = xr.open_dataset(session.store, engine="zarr", consolidated=False, decode_timedelta=True, chunks={})
