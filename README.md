@@ -135,7 +135,7 @@ year = 2025 # Forecasts are stored by year, and available from 1981 to present
 variable = "t2m" # 2 meter temperature (K)
 bucket = "planette-c3s-seasonal-forecasts"
 prefix = f"seas5_ic/hindcast"
-group = "single".    \# or pressure
+group = "single/1platx1plon".    \# or pressure
 
 
 storage = ic.s3_storage(bucket=bucket, prefix=prefix, region="us-east-2", anonymous=True). 
