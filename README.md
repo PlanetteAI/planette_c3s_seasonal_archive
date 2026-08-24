@@ -13,6 +13,8 @@ The planette C3S archive stores this data in cloud native format for easy access
 ## Variables
 
 ### Atmospheric Variables at Pressure Levels
+- Variables at unavailable pressure levels are filled with NaNs.     
+
 
 | Variable                | Units     | Description                                 |
 |-------------------------|-----------|---------------------------------------------|
@@ -45,15 +47,15 @@ The planette C3S archive stores this data in cloud native format for easy access
 | v500                    | m/s       | Meridional wind at 500 hPa                  |
 | v200                    | m/s       | Meridional wind at 200 hPa                  |
 | v700                    | m/s       | Meridional wind at 700 hPa                  |
-| v100                    | m/s       | Meridional wind at 100 hPa or 100 m (please confirm) |
+| v100                    | m/s       | Meridional wind at 100 hPa                  |
 
-| **Geopotential (units TBD)** |       | Please confirm preferred units (m²/s² or gpm) |
-| z850                    | TBD       | Geopotential at 850 hPa                     |
-| z700                    | TBD       | Geopotential at 700 hPa                     |
-| z500                    | TBD       | Geopotential at 500 hPa                     |
-| z300                    | TBD       | Geopotential at 300 hPa                     |
-| z200                    | TBD       | Geopotential at 200 hPa                     |
-| z10                     | TBD       | Geopotential at 10 hPa                      |
+| **Geopotential (m²/s²)** |           |                                             |
+| z850                    | m²/s²      | Geopotential at 850 hPa                     |
+| z700                    | m²/s²      | Geopotential at 700 hPa                     |
+| z500                    | m²/s²      | Geopotential at 500 hPa                     |
+| z300                    | m²/s²      | Geopotential at 300 hPa                     |
+| z200                    | m²/s²      | Geopotential at 200 hPa                     |
+| z10                     | m²/s²      | Geopotential at 10 hPa                      |
 
 ### Surface and Column Variables
 
@@ -65,6 +67,7 @@ The planette C3S archive stores this data in cloud native format for easy access
 | t2d                     | K         | 2 meter dew point temperature               |
 | pr                      | kg m⁻² s⁻¹| total precipitation rate                    |
 | sst                     | K         | Sea surface temperature                     |
+| sic                     | K         | Sea surface temperature                     |
 | stl1                    | K         | Soil temperature (layer 1)                  |
 | slp                     | hPa       | Sea level pressure                          |
 | tcwv                    | kg/m²     | Total column water vapor                    |
@@ -72,9 +75,17 @@ The planette C3S archive stores this data in cloud native format for easy access
 | v10                     | m/s       | 10 meter meridional wind                    |
 | u10m                    | m/s       | 10 meter zonal wind                         |
 | v10m                    | m/s       | 10 meter meridional wind                    |
+| ws10m                   | m/s       | 10 metre wind speed                         |
 | tau_x                   | N/m²      | Surface wind stress (zonal)                 |
 | tau_y                   | N/m²      | Surface wind stress (meridional)            |
-| sf                      | TBD       | Snowfall (please confirm units/definition)  |
+| sf                      | kg m⁻² s⁻¹| Equivalent liquid water snowfall rate       |
+| sdwe                    | kg m⁻².   | Snow depth water equivalent                 |
+| cdd                     |           | cold days...                                |
+| hdd                     |           | hot days...                                 |
+| dswrf                   | J m⁻²     | Surface shortwave radiation downwards       |
+| olr                     | J m⁻²     | TOA outgoing longwave radiation             |
+
+
 
 ## Temporal Coverage
 
@@ -89,19 +100,18 @@ The planette C3S archive stores this data in cloud native format for easy access
 ## Data Format and Access
 
 - **Format:** Zarr (written with [icechunk](https://github.com/earth-mover/icechunk))
-- **Storage:** Amazon S3 (`s3://planettebaikal/forecast_models/seasonal/seas5/prod/sys51/hindcasts/`)
-- **Organization:** Data is organized by variable, frequency, grid, and year.  
+- **Storage:** Amazon S3 (`s3://planette-c3s-seasonal-forecasts/seas5_ic/`)
+- **Organization:** Data is organized by forecast periods (hindscast: 1981-2016; forecast: 2017-present), and variable groups (single / pressure).  
   Example:  
-  `s3://planettebaikal/forecast_models/seasonal/seas5/prod/sys51/hindcasts/pr/day/1latx1lon/seas5_sys51_pr_day_1latx1lon_1990.zarr`
+  `s3://planette-c3s-seasonal-forecasts/seas5_ic/hindcast/`  
 
 ### Data Structure
 
 ```
-s3://planette-c3s-seasonal-forecasts/seas5/
-├── {variable}/
-│   └── day/
-│       └── 1latx1lon/
-│           └── seas5_sys51_{variable}_day_1latx1lon_{year}.zarr
+s3://planette-c3s-seasonal-forecasts/seas5_ic/
+├── {forecast period}/
+│   └── {variable group}/
+│       └── 1latx1lon/ 
 ```
 
 ## Getting Started
@@ -124,10 +134,16 @@ import icechunk as ic
 year = 2025 # Forecasts are stored by year, and available from 1981 to present
 variable = "t2m" # 2 meter temperature (K)
 bucket = "planette-c3s-seasonal-forecasts"
-prefix = f"seas5/sys51/{variable}/day/1latx1lon/seas5_sys51_{variable}_day_1latx1lon_{year}.zarr"
+prefix = f"seas5_ic/hindcast"
+group = "single".    \# or pressure
+
+
+storage = ic.s3_storage(bucket=bucket, prefix=prefix, region="us-east-2", anonymous=True). 
+repo = ic.Repository.open(storage). 
+session = repo.readonly_session("main")  
 
 # Open the dataset
-ds = xr.open_dataset(session.store, engine="zarr", consolidated=False, decode_timedelta=True, chunks={})
+ds = xr.open_zarr(session.store, group=group, consolidated=False, decode_timedelta=True, chunks={})
 
 # Explore the data
 print(ds)
