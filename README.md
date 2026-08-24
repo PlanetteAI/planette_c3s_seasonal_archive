@@ -87,9 +87,10 @@ s3://planette-c3s-seasonal-forecasts/seas5_ic/
 ### Prerequisites
 
 Install the required Python packages:
+NOTE: to access data install icechunk > 2.0
 
 ```bash
-pip install xarray zarr s3fs
+pip install xarray zarr s3fs icechunk
 ```
 
 ### Quick Start Example
