@@ -13,49 +13,17 @@ The planette C3S archive stores this data in cloud native format for easy access
 ## Variables
 
 ### Atmospheric Variables at Pressure Levels
-- Variables at unavailable pressure levels are filled with NaNs.     
 
+| Variable                | Units     | Pressure Levels (hPa)     | Description                                 |
+|-------------------------|-----------|---------------------------|---------------------------------------------|
+| u                       | m/s       | 10, 200, 500, 850  | Zonal wind at pressure levels               |
+| v                       | m/s       | 10, 100, 200, 500, 850  | Meridional wind at pressure levels          |
+| t                       | K         | 100, 200, 300, 400, 500, 700, 850, 925 | Temperature at pressure levels            |
+| q                       | kg/kg     | 100 200, 300, 400, 500, 700, 850, 925, 1000    | Specific humidity at pressure levels        |
+| z                       | m²/s²     | 10, 200, 300, 500, 700, 850 | Geopotential |
 
-| Variable                | Units     | Description                                 |
-|-------------------------|-----------|---------------------------------------------|
-| **Temperature (K)**     |           |                                             |
-| t1000                   | K         | Temperature at 1000 hPa                     |
-| t925                    | K         | Temperature at 925 hPa                      |
-| t850                    | K         | Temperature at 850 hPa                      |
-| t700                    | K         | Temperature at 700 hPa                      |
-| t500                    | K         | Temperature at 500 hPa                      |
-| t400                    | K         | Temperature at 400 hPa                      |
-| t300                    | K         | Temperature at 300 hPa                      |
-| t200                    | K         | Temperature at 200 hPa                      |
-| t100                    | K         | Temperature at 100 hPa                      |
-| **Specific Humidity (g/kg)** |       |                                             |
-| q1000                   | g/kg      | Specific humidity at 1000 hPa               |
-| q925                    | g/kg      | Specific humidity at 925 hPa                |
-| q850                    | g/kg      | Specific humidity at 850 hPa                |
-| q700                    | g/kg      | Specific humidity at 700 hPa                |
-| q500                    | g/kg      | Specific humidity at 500 hPa                |
-| q400                    | g/kg      | Specific humidity at 400 hPa                |
-| q300                    | g/kg      | Specific humidity at 300 hPa                |
-| q200                    | g/kg      | Specific humidity at 200 hPa                |
-| q100                    | g/kg      | Specific humidity at 100 hPa                |
-| **Zonal Wind (m/s)**    |           |                                             |
-| u850                    | m/s       | Zonal wind at 850 hPa                       |
-| u500                    | m/s       | Zonal wind at 500 hPa                       |
-| u200                    | m/s       | Zonal wind at 200 hPa                       |
-| **Meridional Wind (m/s)** |         |                                             |
-| v850                    | m/s       | Meridional wind at 850 hPa                  |
-| v500                    | m/s       | Meridional wind at 500 hPa                  |
-| v200                    | m/s       | Meridional wind at 200 hPa                  |
-| v700                    | m/s       | Meridional wind at 700 hPa                  |
-| v100                    | m/s       | Meridional wind at 100 hPa                  |
+- Variables at unavailable pressure levels are filled with NaNs.  
 
-| **Geopotential (m²/s²)** |           |                                             |
-| z850                    | m²/s²      | Geopotential at 850 hPa                     |
-| z700                    | m²/s²      | Geopotential at 700 hPa                     |
-| z500                    | m²/s²      | Geopotential at 500 hPa                     |
-| z300                    | m²/s²      | Geopotential at 300 hPa                     |
-| z200                    | m²/s²      | Geopotential at 200 hPa                     |
-| z10                     | m²/s²      | Geopotential at 10 hPa                      |
 
 ### Surface and Column Variables
 
@@ -80,8 +48,8 @@ The planette C3S archive stores this data in cloud native format for easy access
 | tau_y                   | N/m²      | Surface wind stress (meridional)            |
 | sf                      | kg m⁻² s⁻¹| Equivalent liquid water snowfall rate       |
 | sdwe                    | kg m⁻².   | Snow depth water equivalent                 |
-| cdd                     |           | cold days...                                |
-| hdd                     |           | hot days...                                 |
+| cdd                     | K·day     | Cooling degree days                         |
+| hdd                     | K·day     | Heating degree days                         |
 | dswrf                   | J m⁻²     | Surface shortwave radiation downwards       |
 | olr                     | J m⁻²     | TOA outgoing longwave radiation             |
 
