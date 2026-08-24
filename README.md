@@ -6,7 +6,7 @@
 
 The C3S seasonal forecast dataset provides global, daily, probabilistic forecasts of the Earth system, enabling users to assess the likelihood of future climate states. These forecasts are particularly valuable for studying slowly evolving climate patterns such as El Niño, La Niña, and the North Atlantic Oscillation (NAO), which can be predicted with greater skill than the chaotic atmosphere.
 
-This dataset is derived from the Copernicus Climate Change Service (C3S) archive and includes SEAS5 hindcasts (1981-2016) and forecasts (2017-present) at 1°x1° global resolution. More models from the C3S archive will be updated as they are processed into cloud native format.
+This dataset is derived from the Copernicus Climate Change Service (C3S) archive and includes SEAS5 hindcasts (1981-2016) and forecasts (2017-present) at 1°x1° global resolution. More models from the C3S archive will be updated as they are processed into cloud native format. This archive is updated ~1/month, but not all variables are updated.
 
 The planette C3S archive stores this data in cloud native format for easy access and analysis using Zarr format with icechunk for efficient cloud access.
 
